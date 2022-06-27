@@ -1,11 +1,10 @@
 <script setup>
-import TabProvider from "../components/Tabs/TabProvider.vue";
+import ExampleMenu from "../components/Tabs/ExampleMenu.vue";
 </script>
 
 <template>
   <div class="about">
-    <TabProvider/>
-    <h1>This is an about page</h1>
+    <ExampleMenu/>
   </div>
 </template>
 
@@ -15,6 +14,7 @@ import TabProvider from "../components/Tabs/TabProvider.vue";
     min-height: 100vh;
     display: flex;
     align-items: center;
+    width: 100%;
   }
 }
 </style>
