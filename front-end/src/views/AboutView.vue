@@ -8,13 +8,12 @@ import ExampleMenu from "../components/Tabs/ExampleMenu.vue";
   </div>
 </template>
 
-<style>
+<style lang="scss">
 @media (min-width: 1024px) {
   .about {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    width: 100%;
   }
 }
 </style>
