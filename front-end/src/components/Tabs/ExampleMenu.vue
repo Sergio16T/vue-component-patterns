@@ -46,7 +46,7 @@ export default {
         <Pagination
             :page="page"
             :numberPerPage="pageSize"
-            :totalCount="300"
+            :totalCount="75"
             @updatePage="updatePage"
         />
     </div>
@@ -54,5 +54,6 @@ export default {
 <style lang="scss">
     .example {
         width: 100%;
+        padding: 2rem;
     }
 </style>

@@ -33,8 +33,9 @@ export default {
       },
     ],
   }),
+
   methods: {
-    goToPage1() {
+    goToFirstPage() {
       this.$emit('updatePage', 1, this.numberPerPage);
     },
 
@@ -72,14 +73,20 @@ export default {
 
     validateInput(e) {
       const keyCode = (e.keyCode ? e.keyCode : e.which);
-      if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) { // 46 is dot
+      if ((keyCode < 48 || keyCode > 57)) {
         e.preventDefault();
       }
     },
 
     updatePageSize(numberPerPage) {
-      console.log('numberPerPage');
-      this.$emit('updatePage', this.page, numberPerPage);
+      const newMaxPage = Math.ceil(this.totalCount / numberPerPage) || 1;
+      let { page } = this;
+
+      if (page > newMaxPage) {
+        page = newMaxPage;
+      }
+
+      this.$emit('updatePage', page, numberPerPage);
     },
   },
 
@@ -99,7 +106,7 @@ export default {
       return `${rangeStart} - ${rangeEnd} of ${this.totalCount}`;
     },
 
-    goToPage1Disabled() {
+    goToFirstPageDisabled() {
       return this.page === 1;
     },
 
@@ -122,15 +129,15 @@ export default {
 </script>
 
 <template>
-  <div class="SM-footer">
-    <div class="pagination" test-id="SM-pagination">
-        <span class="page-range">{{ pageRange }}</span>
-        <button v-on:click="goToPage1" :disabled="goToPage1Disabled" tabindex="0">
+  <div class="footer">
+    <div class="pagination" test-id="pagination">
+        <span class="page-range" test-id="page-range">{{ pageRange }}</span>
+        <button v-on:click="goToFirstPage" :disabled="goToFirstPageDisabled" tabindex="0" aria-label="first page">
           <v-icon>
             mdi-chevron-double-left
           </v-icon>
         </button>
-        <button v-on:click="goToPreviousPage" :disabled="goToPreviousPageDisabled" tabindex="0">
+        <button v-on:click="goToPreviousPage" :disabled="goToPreviousPageDisabled" tabindex="0" aria-label="previous page">
           <v-icon>
             mdi-chevron-left
           </v-icon>
@@ -143,16 +150,17 @@ export default {
           v-on:keyup.enter="updatePageInput"
           v-on:blur="updatePageInput"
           tabindex="0"
+          test-id="pagination-input"
         />
         <span>{{ `of ${numberOfPages} `}}</span>
 
-        <button v-on:click="goToNextPage" :disabled="goToNextPageDisabled" tabindex="0">
+        <button v-on:click="goToNextPage" :disabled="goToNextPageDisabled" tabindex="0" aria-label="next page">
           <v-icon>
             mdi-chevron-right
           </v-icon>
         </button>
 
-        <button v-on:click="goToLastPage" :disabled="goToLastPageDisabled" tabindex="0">
+        <button v-on:click="goToLastPage" :disabled="goToLastPageDisabled" tabindex="0" aria-label="last page">
           <v-icon>
             mdi-chevron-double-right
           </v-icon>
@@ -173,7 +181,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.SM-footer {
+  .footer {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -260,5 +268,5 @@ export default {
             margin-right: 10px;
         }
     }
-}
+  }
 </style>
