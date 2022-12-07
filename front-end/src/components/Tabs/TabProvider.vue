@@ -47,6 +47,7 @@ export default {
         cursor: pointer;
         font-size: 1rem;
         text-align: center;
+        color: gray;
         &:last-child {
             border-right: 0;
         }
@@ -56,7 +57,7 @@ export default {
         color: rgba(0, 0, 0, .3);
     }
     .tab.active {
-        background: white;
+        background: rgb(229 241 252 / 80%);
         color: black;
     }
 </style>
